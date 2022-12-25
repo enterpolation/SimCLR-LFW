@@ -25,7 +25,7 @@ def similarity(model: SimCLR, x_1: torch.Tensor, x_2: torch.Tensor) -> float:
 
 
 @click.command()
-@click.option("-mp", "--model_path", help="Path to serialized model.")
+@click.option("-mp", "--model_path", help="Path to the serialized model.")
 @click.option("-imgp1", "--image_path_1", help="Path to image №1.")
 @click.option("-imgp2", "--image_path_2", help="Path to image №2.")
 def predict(
@@ -33,7 +33,13 @@ def predict(
     image_path_1: str,
     image_path_2: str,
 ) -> None:
-
+    """
+    Prediction function;
+    :param model_path: path to the serialized model;
+    :param image_path_1: path to the first image;
+    :param image_path_2: path to the second image;
+    :return: None.
+    """
     with Image.open(image_path_1) as img_1:
         img_1.load()
         img_1 = augmentation["valid"](img_1)

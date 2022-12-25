@@ -64,6 +64,20 @@ Since we have labels for the dataset, we will be using supervised contrastive lo
 ## Quick start
 All actions should be done from the inside `./` directory.
 
+### Setup
+You can set all the model parameters in the `./source/config.py` file:
+```python
+import torch
+
+
+ORIGINAL_SIZE = 255  # original image size
+IMAGE_SIZE = 64  # augmented image size
+BATCH_SIZE = 128
+LEARNING_RATE = 0.1
+NUM_EPOCH = 50
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+```
+
 ### Train
 ```
 python source/train.py \
@@ -78,3 +92,20 @@ python source/predict.py \
 --image_path_1 images/Aaron_Peirsol_0001.jpg \
 --image_path_2 images/Aaron_Peirsol_0002.jpg
 ```
+
+The output is a cosine similarity between 2 given images.
+
+
+### Visualization
+```
+python source/visualize.py \
+--data_path data/ \
+--model_path models/model.pth \
+--plot_path images/tsne.jpg \
+--k_classes 3
+```
+
+Result:
+<p align="center">
+    <img src=images/tsne.jpg width=50% />
+</p>

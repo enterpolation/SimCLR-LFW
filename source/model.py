@@ -4,6 +4,10 @@ from torchvision import models
 
 
 class Identity(nn.Module):
+    """
+    Identity layer.
+    """
+
     def __init__(self):
         super().__init__()
 
@@ -13,6 +17,10 @@ class Identity(nn.Module):
 
 
 class Dense(nn.Module):
+    """
+    Fully-connected layer.
+    """
+
     def __init__(
         self,
         in_features: int,
@@ -42,6 +50,11 @@ class Dense(nn.Module):
 
 
 class ProjectionHead(nn.Module):
+    """
+    Projection head;
+    converts extracted features to the embedding space.
+    """
+
     def __init__(
         self,
         in_features: int,
@@ -49,6 +62,14 @@ class ProjectionHead(nn.Module):
         out_features: int,
         head_type="nonlinear",
     ):
+        """
+        Initial;
+        :param in_features: number of input feature;
+        :param hidden_features: number of hidden features;
+        :param out_features: number of output features;
+        :param head_type: linear -- one dense layer,
+        non-linear -- two dense layers with ReLU activation function;
+        """
         super().__init__()
 
         if head_type == "linear":
@@ -68,6 +89,10 @@ class ProjectionHead(nn.Module):
 
 
 class SimCLR(nn.Module):
+    """
+    Contrastive model.
+    """
+
     def __init__(self):
         super().__init__()
 

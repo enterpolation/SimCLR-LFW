@@ -1,4 +1,3 @@
-from typing import Tuple, Any
 import config
 from torchvision import datasets, transforms
 
@@ -8,7 +7,7 @@ class LFW(datasets.LFWPeople):
     People dataset.
     """
 
-    def __getitem__(self, index: int) -> Tuple[Any, Any, Any]:
+    def __getitem__(self, index: int):
         """
         Get item from dataset;
         :param index: index;
@@ -32,13 +31,14 @@ class LFW(datasets.LFWPeople):
 augmentation = {
     "train": transforms.Compose(
         [
-            transforms.RandomCrop((config.IMAGE_SIZE, config.IMAGE_SIZE)),
-            transforms.Resize((config.IMAGE_SIZE, config.IMAGE_SIZE)),
+            transforms.RandomCrop(
+                size=config.ORIGINAL_SIZE - config.ORIGINAL_SIZE // 4
+            ),
+            transforms.Resize(size=config.IMAGE_SIZE),
             transforms.RandomHorizontalFlip(p=0.5),
-            transforms.RandomRotation(degrees=45),
             transforms.RandomGrayscale(p=0.1),
-            transforms.GaussianBlur(kernel_size=3),
-            transforms.ColorJitter(contrast=0.1, hue=0.1),
+            transforms.GaussianBlur(kernel_size=1),
+            transforms.ColorJitter(brightness=0.1, contrast=0.1, hue=0.05),
             transforms.ToTensor(),
         ]
     ),
